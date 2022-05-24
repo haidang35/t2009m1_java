@@ -1,6 +1,7 @@
 <%@ page import="com.example.helloservlet.entity.User" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%
+<%@ page import="java.util.ArrayList" %>
+<%
     String title = (String) request.getAttribute("title");
     List<User> userList = (List<User>) request.getAttribute("userList");
 %>
@@ -10,11 +11,13 @@
     <title>User List</title>
 </head>
 <body>
-    <h1><%= title %></h1>
-    <ul>
-        <% for(User user : userList) { %>
-          <li><%= user.getName() %> --- <%= user.getEmail() %></li>
-        <% } %>
-    </ul>
+<h1><%= title %>
+</h1>
+<ul>
+    <% for (User user : userList) { %>
+    <li><%= user.getName() %> --- <%= user.getEmail() %>
+    </li>
+    <% } %>
+</ul>
 </body>
 </html>

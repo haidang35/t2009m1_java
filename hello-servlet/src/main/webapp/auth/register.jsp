@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css?family=Bubblegum+Sans|Nova+Mono|Roboto+Condensed" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Parisienne&display=swap" rel="stylesheet">
     <style>
-        body{
-            text-align:center;
+        body {
+            text-align: center;
             background-image: linear-gradient(135deg, #007991 30%, #78ffd6 90%);
         }
 
@@ -19,9 +19,10 @@
             position: relative;
             z-index: 3;
             padding: 100px;
-            font-size:18px;
+            font-size: 18px;
             color: #999999;
         }
+
         .register-wrapper * {
             box-sizing: border-box;
         }
@@ -60,8 +61,8 @@
             font-size: 1rem;
             background-color: #f2395a;
             background-size: 100%;
-        rgba(0, 0, 0, 0) 75%,rgba(0, 0, 0, 0));
-            background-image:linear-gradient(45deg,
+        rgba(0, 0, 0, 0) 75 %, rgba(0, 0, 0, 0));
+            background-image: linear-gradient(45deg,
             rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%,
             rgba(0, 0, 0, 0) 50%,
             rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%,
@@ -80,6 +81,7 @@
         .register-wrapper form input[type="submit"]:hover {
             background-size: 40px 40px;
         }
+
         .register-title {
             font-size: 1.5em;
             padding-bottom: 30px;
@@ -133,13 +135,13 @@
             transform: scale(0.92) translate(0, 32px);
         }
 
-        h1,a{
+        h1, a {
             font-family: 'Parisienne', cursive;
             color: #fff;
-            font-size:50px;
+            font-size: 50px;
             text-decoration: none;
             text-shadow: 2px 2px 3px lightblue;
-            padding-top:35px;
+            padding-top: 35px;
         }
 
     </style>
@@ -158,9 +160,9 @@
                     <input type="email" name="email" placeholder="Enter your email"/>
                     <input type="tel" name="phone" placeholder="Enter your phone"/>
                     <input type="text" name="username" placeholder="Enter your username"/>
-                    <input type="password" name="password" placeholder="Enter your password" />
+                    <input type="password" name="password" placeholder="Enter your password"/>
                     <input type="password" name="confirmPassword" placeholder="Enter confirm password"/>
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Submit"/>
                 </form>
             </div>
         </div>
