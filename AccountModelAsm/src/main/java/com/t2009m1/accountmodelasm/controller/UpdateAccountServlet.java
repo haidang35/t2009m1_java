@@ -1,6 +1,7 @@
 package com.t2009m1.accountmodelasm.controller;
 
 import com.t2009m1.accountmodelasm.entity.Account;
+import com.t2009m1.accountmodelasm.model.AccountModel;
 import com.t2009m1.accountmodelasm.model.MySqlAccountModel;
 
 import javax.servlet.ServletException;
@@ -9,17 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CreateAccountServlet extends HttpServlet {
-    private MySqlAccountModel mySqlAccountModel;
+public class UpdateAccountServlet extends HttpServlet {
+    private AccountModel accountModel;
 
     @Override
     public void init() throws ServletException {
-        mySqlAccountModel = new MySqlAccountModel();
+        accountModel = new MySqlAccountModel();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/account/create.jsp").forward(req, resp);
+        int id = Integer.parseInt(req.getParameter("id"));
+        Account account = accountModel.findById(id);
+        req.setAttribute("account", account);
+        req.getRequestDispatcher("/account/edit.jsp").forward(req, resp);
     }
 
     @Override
@@ -27,18 +31,15 @@ public class CreateAccountServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; chartset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
+        int id = Integer.parseInt(req.getParameter("id"));
         String fullName = req.getParameter("fullName");
-        System.out.println("Full name " + fullName);
         String username = req.getParameter("username");
-        System.out.println("username " + username);
         String email = req.getParameter("email");
-        System.out.println("email " + email);
         String password = req.getParameter("password");
-        System.out.println("password " + password);
         int status = Integer.parseInt(req.getParameter("status"));
-        System.out.println("status " + status);
         Account account = new Account(fullName, username, email, password, status);
-        mySqlAccountModel.save(account);
-        resp.sendRedirect("/accounts");
+        if(accountModel.update(id, account)) {
+            resp.sendRedirect("/accounts");
+        }
     }
 }

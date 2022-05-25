@@ -12,4 +12,28 @@
         <servlet-name>CreateAccountServlet</servlet-name>
         <url-pattern>/accounts/create</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ListAccountServlet</servlet-name>
+        <servlet-class>com.t2009m1.accountmodelasm.controller.ListAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListAccountServlet</servlet-name>
+        <url-pattern>/accounts</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UpdateAccountServlet</servlet-name>
+        <servlet-class>com.t2009m1.accountmodelasm.controller.UpdateAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateAccountServlet</servlet-name>
+        <url-pattern>/accounts/update</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <servlet-class>com.t2009m1.accountmodelasm.controller.DeleteAccountServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteAccountServlet</servlet-name>
+        <url-pattern>/accounts/delete</url-pattern>
+    </servlet-mapping>
 </web-app>

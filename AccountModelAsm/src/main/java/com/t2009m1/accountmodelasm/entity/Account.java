@@ -1,6 +1,7 @@
 package com.t2009m1.accountmodelasm.entity;
 
 public class Account {
+    private  int id;
     private String fullName;
     private String username;
     private  String email;
@@ -16,6 +17,23 @@ public class Account {
         this.email = email;
         this.password = password;
         this.status = status;
+    }
+
+    public Account(int id, String fullName, String username, String email, String password, int status) {
+        this.id = id;
+        this.fullName = fullName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.status = status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFullName() {

@@ -1,3 +1,4 @@
+<%@ page import="com.t2009m1.accountmodelasm.entity.Account" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <html>
@@ -21,28 +22,34 @@
     </nav>
 </header>
 <br>
+<%
+    Account account = (Account) request.getAttribute("account");
+%>
 <div class="container col-md-5">
     <div class="card">
         <div class="card-body">
-            <form action="/accounts/create" method="post">
+            <form action="/accounts/update" method="post">
                 <fieldset class="form-group">
-                    <label>Fullname</label> <input type="text"  class="form-control" name="fullName" required="required">
+                     <input type="hidden"  class="form-control" name="id" value="<%= account.getId() %>" >
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Username</label> <input type="text"  class="form-control" name="username">
+                    <label>Fullname</label> <input type="text"  class="form-control" name="fullName" value="<%= account.getFullName() %>" required="required">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Email</label> <input type="email"  class="form-control" name="email" required="required">
+                    <label>Username</label> <input type="text"  class="form-control" name="username" value="<%= account.getUsername() %>">
                 </fieldset>
                 <fieldset class="form-group">
-                    <label>Password</label> <input type="password"  class="form-control" name="password">
+                    <label>Email</label> <input type="email"  class="form-control" name="email" value="<%= account.getEmail() %>" required="required">
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Password</label> <input type="password"  class="form-control" name="password" value="<%= account.getPassword() %>">
                 </fieldset>
                 <fieldset class="form-group">
                     <label>Status</label>
-                    <select class="form-control" name="status">
+                    <select class="form-control" name="status" >
                         <option value="">Select status</option>
-                        <option value="1">Active</option>
-                        <option value="0">Deactive</option>
+                        <option value="1" <% if(account.getStatus() == 1)  {%> selected <% } %> >Active</option>
+                        <option value="0" <% if(account.getStatus() == 0)  {%> selected <% } %>>Deactive</option>
                     </select>
                 </fieldset>
                 <button type="submit" class="btn btn-success">Save</button>
