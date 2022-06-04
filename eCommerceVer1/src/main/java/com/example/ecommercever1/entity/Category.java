@@ -3,6 +3,7 @@ package com.example.ecommercever1.entity;
 import com.example.ecommercever1.constant.ValidationConstant;
 import com.example.ecommercever1.entity.base.BaseEntity;
 import com.example.ecommercever1.entity.entityEnum.CategoryStatus;
+import com.example.ecommercever1.util.StringHelper;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -12,31 +13,32 @@ public class Category extends BaseEntity {
     private String name;
     private int parentId;
     private CategoryStatus status;
+    private String slug;
     private HashMap<String, String> errors;
 
     public Category() {
-        this.name = "";
-        this.parentId = 0;
-        this.status = CategoryStatus.UNDEFINED;
         errors = new HashMap<>();
     }
 
-    public Category(int id, String name, CategoryStatus status) {
+    public Category(int id, String name, String slug, CategoryStatus status) {
         this.id = id;
         this.name = name;
         this.status = status;
+        this.slug = slug;
     }
 
-    public Category(int id, String name, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy,CategoryStatus status) {
+    public Category(int id, String name, String slug, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy,CategoryStatus status) {
         super(createdAt, updatedAt, deletedAt, createdBy, updatedBy, deletedBy);
         this.id = id;
         this.name = name;
         this.status = status;
+        this.slug = slug;
     }
 
-    public Category(String name, CategoryStatus status) {
+    public Category(String name, CategoryStatus status, String slug) {
         this.name = name;
         this.status = status;
+        this.slug = slug;
         errors = new HashMap<>();
     }
 
@@ -72,6 +74,14 @@ public class Category extends BaseEntity {
         this.parentId = parentId;
     }
 
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
     public HashMap<String, String> getErrors() {
         return errors;
     }
@@ -83,6 +93,7 @@ public class Category extends BaseEntity {
     public static final class CategoryBuilder {
         public int id;
         public String name;
+        public String slug;
         public int parentId;
         public CategoryStatus status;
         public LocalDateTime createdAt;
@@ -93,6 +104,12 @@ public class Category extends BaseEntity {
         public int deletedBy;
 
         private CategoryBuilder() {
+            this.name = "";
+            this.status = CategoryStatus.ACTIVE;
+            this.createdAt = LocalDateTime.now();
+            this.updatedAt = LocalDateTime.now();
+            this.createdBy = 1;
+            this.updatedBy = 1;
         }
 
         public static CategoryBuilder aCategory() {
@@ -153,6 +170,7 @@ public class Category extends BaseEntity {
             Category category = new Category();
             category.setId(id);
             category.setName(name);
+            category.setSlug(StringHelper.toSlug(name));
             category.setParentId(parentId);
             category.setStatus(status);
             category.setCreatedAt(createdAt);
@@ -161,14 +179,6 @@ public class Category extends BaseEntity {
             category.setCreatedBy(createdBy);
             category.setUpdatedBy(updatedBy);
             category.setDeletedBy(deletedBy);
-            return category;
-        }
-
-        public Category build2() {
-            Category category = new Category();
-            category.setName(name);
-            category.setParentId(parentId);
-            category.setStatus(status);
             return category;
         }
     }

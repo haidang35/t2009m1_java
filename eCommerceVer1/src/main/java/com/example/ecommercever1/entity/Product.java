@@ -3,6 +3,9 @@ package com.example.ecommercever1.entity;
 import com.example.ecommercever1.constant.ValidationConstant;
 import com.example.ecommercever1.entity.base.BaseEntity;
 import com.example.ecommercever1.entity.entityEnum.ProductStatus;
+import com.example.ecommercever1.model.MySqlCategoryModel;
+import com.example.ecommercever1.model.interfaceModel.CategoryModel;
+import com.example.ecommercever1.util.StringHelper;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -10,6 +13,7 @@ import java.util.HashMap;
 public class Product extends BaseEntity {
     private int id;
     private String name;
+    private String slug;
     private String description;
     private String detail;
     private double price;
@@ -19,17 +23,14 @@ public class Product extends BaseEntity {
     private HashMap<String, String> errors;
 
     public Product() {
-        this.name = "";
-        this.description = "";
-        this.detail = "";
-        this.thumbnail = "";
-        this.status = ProductStatus.ACTIVE;
+
         errors = new HashMap<>();
     }
 
-    public Product(int id, String name, String description, String detail, double price, String thumbnail, int categoryId, ProductStatus status) {
+    public Product(int id, String name, String slug, String description, String detail, double price, String thumbnail, int categoryId, ProductStatus status) {
         this.id = id;
         this.name = name;
+        this.slug = slug;
         this.description = description;
         this.detail = detail;
         this.price = price;
@@ -39,8 +40,9 @@ public class Product extends BaseEntity {
         errors = new HashMap<>();
     }
 
-    public Product(String name, String description, String detail, double price, String thumbnail, int categoryId, ProductStatus status) {
+    public Product(String name, String slug, String description, String detail, double price, String thumbnail, int categoryId, ProductStatus status) {
         this.name = name;
+        this.slug = slug;
         this.description = description;
         this.detail = detail;
         this.price = price;
@@ -50,10 +52,11 @@ public class Product extends BaseEntity {
         errors = new HashMap<>();
     }
 
-    public Product(int id, String name, String description, String detail, double price, String thumbnail, int categoryId, ProductStatus status, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy) {
+    public Product(int id, String name, String slug, String description, String detail, double price, String thumbnail, int categoryId, ProductStatus status, LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy) {
         super(createdAt, updatedAt, deletedAt, createdBy, updatedBy, deletedBy);
         this.id = id;
         this.name = name;
+        this.slug = slug;
         this.description = description;
         this.detail = detail;
         this.price = price;
@@ -126,6 +129,14 @@ public class Product extends BaseEntity {
         this.status = status;
     }
 
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
     public HashMap<String, String> getErrors() {
         return errors;
     }
@@ -139,6 +150,7 @@ public class Product extends BaseEntity {
         private int deletedBy;
         private int id;
         private String name;
+        private String slug;
         private String description;
         private String detail;
         private double price;
@@ -147,6 +159,16 @@ public class Product extends BaseEntity {
         private ProductStatus status;
 
         private ProductBuilder() {
+            this.name = "";
+            this.slug = "";
+            this.description = "";
+            this.detail = "";
+            this.thumbnail = "";
+            this.status = ProductStatus.ACTIVE;
+            this.createdAt = LocalDateTime.now();
+            this.updatedAt = LocalDateTime.now();
+            this.createdBy = 1;
+            this.updatedBy = 1;
         }
 
         public static ProductBuilder aProduct() {
@@ -227,6 +249,7 @@ public class Product extends BaseEntity {
             Product product = new Product();
             product.setId(id);
             product.setName(name);
+            product.setSlug(StringHelper.toSlug(name));
             product.setDescription(description);
             product.setDetail(detail);
             product.setPrice(price);
@@ -241,19 +264,11 @@ public class Product extends BaseEntity {
             product.setDeletedBy(deletedBy);
             return product;
         }
+    }
 
-        public Product build2() {
-            Product product = new Product();
-            product.setId(id);
-            product.setName(name);
-            product.setDescription(description);
-            product.setDetail(detail);
-            product.setPrice(price);
-            product.setThumbnail(thumbnail);
-            product.setCategoryId(categoryId);
-            product.setStatus(status);
-            return product;
-        }
+    public Category getCategory() {
+        CategoryModel categoryModel = new MySqlCategoryModel();
+        return categoryModel.findById(this.categoryId);
     }
 
     public boolean isValid() {

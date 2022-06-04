@@ -9,5 +9,6 @@ public interface CategoryModel {
     boolean update(int id, Category obj);
     boolean delete(int id);
     Category findById(int id);
+    Category findBySlug(String slug);
     List<Category> findAll();
 }

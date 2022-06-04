@@ -13,12 +13,12 @@ import com.example.ecommercever1.model.interfaceModel.CategoryModel;
 import com.example.ecommercever1.model.interfaceModel.ProductModel;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
 
 public class CreateProductServlet extends HttpServlet {
     private ProductModel productModel;
@@ -47,6 +47,7 @@ public class CreateProductServlet extends HttpServlet {
         String thumbnail = req.getParameter("thumbnail");
         String description = req.getParameter("description");
         String detail = req.getParameter("detail");
+        System.out.println("Price " + req.getParameter("price"));
         Double price = Double.parseDouble(req.getParameter("price"));
         int status = Integer.parseInt(req.getParameter("status"));
         int categoryId = Integer.parseInt(req.getParameter("categoryId"));
@@ -58,7 +59,7 @@ public class CreateProductServlet extends HttpServlet {
                 .withPrice(price)
                 .withStatus(ProductStatus.of(status))
                 .withCategoryId(categoryId)
-                .build2();
+                .build();
         if (product.isValid()) {
             HttpSession session = req.getSession();
             MessageView messageView = new MessageView();
@@ -82,6 +83,5 @@ public class CreateProductServlet extends HttpServlet {
         req.setAttribute("formAction", FormAction.CREATE);
         req.setAttribute("productList", productList);
         req.getRequestDispatcher("/admin/pages/product/form.jsp").forward(req, res);
-
     }
 }

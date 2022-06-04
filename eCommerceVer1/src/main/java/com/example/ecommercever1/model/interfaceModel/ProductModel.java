@@ -10,5 +10,7 @@ public interface ProductModel {
     boolean update(int id, Product obj);
     boolean delete(int id);
     Product findById(int id);
+    Product findBySlug(String slug);
+    List<Product> findByCategory(int categoryId);
     List<Product> findAll();
 }

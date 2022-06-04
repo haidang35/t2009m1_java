@@ -27,6 +27,7 @@ public class MySqlCategoryModel implements CategoryModel {
             preparedStatement.setInt(5, category.getCreatedBy());
             preparedStatement.setInt(6, category.getUpdatedBy());
             preparedStatement.setInt(7, category.getStatus().getValue());
+            preparedStatement.setString(8, category.getSlug());
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             e.printStackTrace();
@@ -52,7 +53,8 @@ public class MySqlCategoryModel implements CategoryModel {
             preparedStatement.setInt(7, category.getUpdatedBy());
             preparedStatement.setInt(8, category.getDeletedBy());
             preparedStatement.setInt(9, category.getStatus().getValue());
-            preparedStatement.setInt(10, id);
+            preparedStatement.setString(10, category.getSlug());
+            preparedStatement.setInt(11, id);
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             e.printStackTrace();
@@ -108,6 +110,22 @@ public class MySqlCategoryModel implements CategoryModel {
             e.printStackTrace();
         }
         return categories;
+    }
+    @Override
+    public Category findBySlug(String slug) {
+        try {
+            Connection connection = ConnectionHelper.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.CATEGORY_FIND_BY_SLUG);
+            preparedStatement.setInt(1, CategoryStatus.ACTIVE.getValue());
+            preparedStatement.setString(2, slug);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                return resultSetToCategory(rs);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Category resultSetToCategory(ResultSet rs)

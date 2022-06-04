@@ -73,7 +73,7 @@
                                         <td scope="row"><%=product.getId()%>
                                         </td>
                                         <td>
-                                            <img width="200" src="<%=product.getThumbnail()%>"/>
+                                            <img width="100" src="<%=product.getThumbnail()%>"/>
                                         </td>
                                         <td><%=product.getName()%>
                                         </td>
@@ -92,7 +92,7 @@
                                                 <ul class="dropdown-menu dropdown-menu-right"
                                                     aria-labelledby="dropdown-recent-order1">
                                                     <li class="dropdown-item">
-                                                        <a href="/admin/products/update?id=<%=product.getId()%>">View</a>
+                                                        <a href="/admin/products/update?id=<%=product.getId()%>">Edit</a>
                                                     </li>
                                                     <li class="dropdown-item">
                                                         <a href="#" data-toggle="modal"

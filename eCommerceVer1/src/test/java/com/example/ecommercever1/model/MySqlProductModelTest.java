@@ -35,7 +35,7 @@ class MySqlProductModelTest {
                         .withThumbnail("/src/image.png")
                         .withCategoryId(category.getId())
                         .withStatus(ProductStatus.ACTIVE)
-                .build2()));
+                .build()));
     }
 
     @Test

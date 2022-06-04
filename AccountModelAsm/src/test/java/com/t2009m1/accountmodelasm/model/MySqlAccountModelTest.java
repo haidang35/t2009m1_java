@@ -3,7 +3,10 @@ package com.t2009m1.accountmodelasm.model;
 import com.t2009m1.accountmodelasm.entity.Account;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,5 +54,7 @@ class MySqlAccountModelTest {
     void findAll() {
         List<Account> list = mySqlAccountModel.findAll();
         assertNotEquals(0, list.size());
+        Date now = new Date();
+        LocalDateTime nowConvert = LocalDateTime.ofInstant(now.toInstant(), ZoneId.systemDefault());
     }
 }

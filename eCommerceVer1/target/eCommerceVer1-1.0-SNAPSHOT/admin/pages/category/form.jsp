@@ -27,7 +27,7 @@
     }
     Category category = (Category) request.getAttribute("category");
     if (category == null) {
-        category = new Category();
+        category = Category.CategoryBuilder.aCategory().build();
     }
 %>
 <body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">
@@ -67,6 +67,7 @@
                                         <div class="col-md-12 mb-3">
                                             <label for="parentId">Parent</label>
                                             <select class="form-control " name="parentId" id="parentId">
+                                                <option value="0">Select Parent</option>
                                                 <% for (Category item : categoryList) { %>
                                                 <option value="<%= item.getId() %>" <% if (category.getParentId() == item.getId()) { %>
                                                         selected <% } %> >
@@ -81,8 +82,9 @@
                                             <% } %>
                                         </div>
                                         <div class="col-md-12 mb-3">
-                                            <label for="status">City</label>
+                                            <label for="status">Status</label>
                                             <select name="status" class="form-control " id="status">
+                                                <option value="0">Select Status</option>
                                                 <% for (CategoryStatus categoryStatus : CategoryStatus.values()) { %>
                                                 <option value="<%= categoryStatus.getValue() %>" <% if (category.getStatus().getValue() == categoryStatus.getValue()) { %>
                                                         selected <% } %> >

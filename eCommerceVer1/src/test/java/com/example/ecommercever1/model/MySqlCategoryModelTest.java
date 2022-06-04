@@ -19,7 +19,7 @@ class MySqlCategoryModelTest {
         categoryModel.create(Category.CategoryBuilder.aCategory()
                 .withName("Category Test")
                 .withStatus(CategoryStatus.ACTIVE)
-                .build2());
+                .build());
     }
 
     @Test
@@ -27,7 +27,7 @@ class MySqlCategoryModelTest {
         assertEquals(true, categoryModel.create(Category.CategoryBuilder.aCategory()
                 .withName("Category 1")
                 .withStatus(CategoryStatus.ACTIVE)
-                .build2()));
+                .build()));
     }
 
     @Test
@@ -64,5 +64,14 @@ class MySqlCategoryModelTest {
     void findAll() {
         List<Category> categoryList = categoryModel.findAll();
         assertNotEquals(0, categoryList.size());
+    }
+
+    @Test
+    void findBySlug() {
+        List<Category> categoryList = categoryModel.findAll();
+        assertNotEquals(0, categoryList.size());
+        Category category = categoryList.get(0);
+        assertNotEquals(null, category);
+        assertNotEquals(null, categoryModel.findBySlug(category.getSlug()));
     }
 }

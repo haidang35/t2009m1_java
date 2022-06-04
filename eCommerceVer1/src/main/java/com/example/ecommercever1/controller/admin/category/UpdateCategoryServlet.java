@@ -53,7 +53,7 @@ public class UpdateCategoryServlet extends HttpServlet {
                 .withName(name)
                 .withStatus(CategoryStatus.of(status))
                 .withParentId(parentId)
-                .build2();
+                .build();
         if (category.isValid()) {
             HttpSession session = req.getSession();
             MessageView messageView = new MessageView();

@@ -1,7 +1,9 @@
 package com.example.ecommercever1.model;
 
 import com.example.ecommercever1.constant.SqlConstant;
+import com.example.ecommercever1.entity.Category;
 import com.example.ecommercever1.entity.Product;
+import com.example.ecommercever1.entity.entityEnum.CategoryStatus;
 import com.example.ecommercever1.entity.entityEnum.ProductStatus;
 import com.example.ecommercever1.model.interfaceModel.ProductModel;
 import com.example.ecommercever1.util.ConnectionHelper;
@@ -37,6 +39,7 @@ public class MySqlProductModel implements ProductModel {
             preparedStatement.setInt(11, product.getUpdatedBy());
             preparedStatement.setInt(12, product.getDeletedBy());
             preparedStatement.setInt(13, product.getStatus().getValue());
+            preparedStatement.setString(14, product.getSlug());
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             System.out.println(e);
@@ -66,7 +69,8 @@ public class MySqlProductModel implements ProductModel {
             preparedStatement.setInt(11, product.getUpdatedBy());
             preparedStatement.setInt(12, product.getDeletedBy());
             preparedStatement.setInt(13, product.getStatus().getValue());
-            preparedStatement.setInt(14, id);
+            preparedStatement.setString(14, product.getSlug());
+            preparedStatement.setInt(15, id);
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             e.printStackTrace();
@@ -117,6 +121,41 @@ public class MySqlProductModel implements ProductModel {
                 if(product != null) {
                     products.add(product);
                 }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+    @Override
+    public Product findBySlug(String slug) {
+        try {
+            Connection connection = ConnectionHelper.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.PRODUCT_FIND_BY_SLUG);
+            preparedStatement.setInt(1, CategoryStatus.ACTIVE.getValue());
+            preparedStatement.setString(2, slug);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                return resultSetToProduct(rs);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Product> findByCategory(int categoryId) {
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = ConnectionHelper.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.PRODUCT_FIND_BY_CATEGORY_ID);
+            preparedStatement.setInt(1, ProductStatus.ACTIVE.getValue());
+            preparedStatement.setInt(2, categoryId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                products.add(resultSetToProduct(rs));
             }
         }catch (SQLException e) {
             e.printStackTrace();

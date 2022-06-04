@@ -79,7 +79,7 @@ public class UpdateProductServlet extends HttpServlet {
                 .withPrice(price)
                 .withStatus(ProductStatus.of(status))
                 .withCategoryId(categoryId)
-                .build2();
+                .build();
         if (product.isValid()) {
             HttpSession session = req.getSession();
             MessageView messageView = new MessageView();
