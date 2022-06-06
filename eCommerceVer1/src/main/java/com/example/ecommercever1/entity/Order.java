@@ -2,11 +2,18 @@ package com.example.ecommercever1.entity;
 
 import com.example.ecommercever1.entity.base.BaseEntity;
 import com.example.ecommercever1.entity.entityEnum.OrderStatus;
+import com.example.ecommercever1.model.MySqlOrderItemModel;
+import com.example.ecommercever1.model.MySqlOrderModel;
+import com.example.ecommercever1.model.interfaceModel.OrderItemModel;
+import com.example.ecommercever1.model.interfaceModel.OrderModel;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Order extends BaseEntity {
     private int id;
+    private String code;
     private String firstName;
     private String lastName;
     private String companyName;
@@ -18,12 +25,14 @@ public class Order extends BaseEntity {
     private double total;
     private double shippingFee;
     private OrderStatus status;
+    private List<OrderItem> orderItems;
 
     public Order() {
     }
 
-    public Order(int id, String firstName, String lastName, String companyName, String country, String address, String email, String phoneNumber, String note, double total, double shippingFee, OrderStatus status) {
+    public Order(int id, String code, String firstName, String lastName, String companyName, String country, String address, String email, String phoneNumber, String note, double total, double shippingFee, OrderStatus status) {
         this.id = id;
+        this.code = code;
         this.firstName = firstName;
         this.lastName = lastName;
         this.companyName = companyName;
@@ -37,7 +46,8 @@ public class Order extends BaseEntity {
         this.status = status;
     }
 
-    public Order(String firstName, String lastName, String companyName, String country, String address, String email, String phoneNumber, String note, double total, double shippingFee, OrderStatus status) {
+    public Order(String code, String firstName, String lastName, String companyName, String country, String address, String email, String phoneNumber, String note, double total, double shippingFee, OrderStatus status) {
+        this.code = code;
         this.firstName = firstName;
         this.lastName = lastName;
         this.companyName = companyName;
@@ -147,6 +157,22 @@ public class Order extends BaseEntity {
         this.status = status;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        OrderItemModel orderItemModel = new MySqlOrderItemModel();
+        List<OrderItem> orderItemList = orderItemModel.findByOrderId(this.id);
+        if(orderItemList == null) {
+            orderItemList = new ArrayList<>();
+        }
+        return orderItemList;
+    }
 
     public static final class OrderBuilder {
         public LocalDateTime createdAt;
@@ -156,6 +182,7 @@ public class Order extends BaseEntity {
         public int updatedBy;
         public int deletedBy;
         private int id;
+        private String code;
         private String firstName;
         private String lastName;
         private String companyName;
@@ -179,6 +206,11 @@ public class Order extends BaseEntity {
 
         public OrderBuilder withId(int id) {
             this.id = id;
+            return this;
+        }
+
+        public OrderBuilder withCode(String code) {
+            this.code = code;
             return this;
         }
 
@@ -270,6 +302,7 @@ public class Order extends BaseEntity {
         public Order build() {
             Order order = new Order();
             order.setId(id);
+            order.setCode(code);
             order.setFirstName(firstName);
             order.setLastName(lastName);
             order.setCompanyName(companyName);

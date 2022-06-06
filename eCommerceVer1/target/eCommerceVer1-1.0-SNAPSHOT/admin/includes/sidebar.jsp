@@ -84,7 +84,49 @@
                         </div>
                     </ul>
                 </li>
-
+                <li class="has-sub <%if(request.getRequestURI().equals("/admin/pages/order/list.jsp") || request.getRequestURI().equals("/admin/pages/order/form.jsp") || request.getRequestURI().equals("/admin/pages/order/detail.jsp") ) {%> active expand <%}%>">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
+                       data-target="#order"
+                       aria-expanded="false" aria-controls="order">
+                        <i class="mdi mdi-view-dashboard-outline"></i>
+                        <span class="nav-text">Order</span> <b class="caret"></b>
+                    </a>
+                    <ul class="collapse <%if(request.getRequestURI().equals("/admin/pages/order/list.jsp") || request.getRequestURI().equals("/admin/pages/order/form.jsp") || request.getRequestURI().equals("/admin/pages/order/detail.jsp") ) {%> show <%}%>"
+                        id="order"
+                        data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="<%if(request.getRequestURI().equals("/admin/pages/order/form.jsp")) {%> active <%}%>">
+                                <a class="sidenav-item-link" href="/admin/orders/create">
+                                    <span class="nav-text">Create</span>
+                                </a>
+                            </li>
+                            <li class="<%if(request.getRequestURI().equals("/admin/pages/order/list.jsp")) {%> active <%}%>">
+                                <a class="sidenav-item-link" href="/admin/orders">
+                                    <span class="nav-text">List</span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                <li class="has-sub <%if(request.getRequestURI().equals("/admin/pages/report/order.jsp")) {%> active expand <%}%>">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
+                       data-target="#report"
+                       aria-expanded="false" aria-controls="report">
+                        <i class="mdi mdi-view-dashboard-outline"></i>
+                        <span class="nav-text">Report</span><b class="caret"></b>
+                    </a>
+                    <ul class="collapse <%if(request.getRequestURI().equals("/admin/pages/report/order.jsp") || request.getRequestURI().equals("/admin/pages/order/form.jsp") || request.getRequestURI().equals("/admin/pages/order/detail.jsp") ) {%> show <%}%>"
+                        id="report"
+                        data-parent="#sidebar-menu">
+                        <div class="sub-menu">
+                            <li class="<%if(request.getRequestURI().equals("/admin/pages/report/order.jsp")) {%> active <%}%>">
+                                <a class="sidenav-item-link" href="/admin/reports/order">
+                                    <span class="nav-text">Order</span>
+                                </a>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
             </ul>
 
         </div>

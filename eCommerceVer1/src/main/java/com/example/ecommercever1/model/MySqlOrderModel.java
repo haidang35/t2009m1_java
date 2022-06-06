@@ -38,6 +38,7 @@ public class MySqlOrderModel implements OrderModel {
             preparedStatement.setInt(13, order.getCreatedBy());
             preparedStatement.setInt(14, order.getUpdatedBy());
             preparedStatement.setInt(15, order.getStatus().getValue());
+            preparedStatement.setString(16, order.getCode());
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             e.printStackTrace();
@@ -109,6 +110,42 @@ public class MySqlOrderModel implements OrderModel {
     }
 
     @Override
+    public Order findByCode(String code) {
+        try{
+            Connection connection = ConnectionHelper.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.ORDER_FIND_BY_CODE);
+            preparedStatement.setString(1, code);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                return resultSetToCategory(rs);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<Order> findByStatus(OrderStatus status) {
+        List<Order> orders = new ArrayList<>();
+        try{
+            Connection connection = ConnectionHelper.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SqlConstant.ORDER_FIND_BY_CODE);
+            preparedStatement.setInt(1, status.getValue());
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()) {
+                Order order = resultSetToCategory(rs);
+                if(order != null) {
+                    orders.add(order);
+                }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
+    @Override
     public List<Order> findAll() {
         List<Order> orders = new ArrayList<>();
         try{
@@ -131,6 +168,7 @@ public class MySqlOrderModel implements OrderModel {
     {
         try{
             int id = Integer.parseInt(rs.getString(SqlConstant.ORDER_FIELD_ID));
+            String code = rs.getString(SqlConstant.ORDER_FIELD_CODE);
             String firstName = rs.getString(SqlConstant.ORDER_FIELD_FIRST_NAME);
             String lastName = rs.getString(SqlConstant.ORDER_FIELD_LAST_NAME);
             String companyName = rs.getString(SqlConstant.ORDER_FIELD_COMPANY_NAME);
@@ -153,6 +191,7 @@ public class MySqlOrderModel implements OrderModel {
             OrderStatus status = OrderStatus.of(rs.getInt(SqlConstant.ORDER_FIELD_STATUS));
             return Order.OrderBuilder.anOrder()
                     .withId(id)
+                    .withCode(code)
                     .withFirstName(firstName)
                     .withLastName(lastName)
                     .withCompanyName(companyName)

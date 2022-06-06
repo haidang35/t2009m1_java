@@ -4,7 +4,7 @@ public class OrderItem {
     private int id;
     private int orderId;
     private String productName;
-    private String quantity;
+    private int quantity;
     private String thumbnail;
     private double price;
     private int productId;
@@ -12,7 +12,7 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(int orderId, String productName, String quantity, String thumbnail, double price, int productId) {
+    public OrderItem(int orderId, String productName, int quantity, String thumbnail, double price, int productId) {
         this.orderId = orderId;
         this.productName = productName;
         this.quantity = quantity;
@@ -45,11 +45,11 @@ public class OrderItem {
         this.productName = productName;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -82,7 +82,7 @@ public class OrderItem {
         private int id;
         private int orderId;
         private String productName;
-        private String quantity;
+        private int quantity;
         private String thumbnail;
         private double price;
         private int productId;
@@ -109,7 +109,7 @@ public class OrderItem {
             return this;
         }
 
-        public OrderItemBuilder withQuantity(String quantity) {
+        public OrderItemBuilder withQuantity(int quantity) {
             this.quantity = quantity;
             return this;
         }

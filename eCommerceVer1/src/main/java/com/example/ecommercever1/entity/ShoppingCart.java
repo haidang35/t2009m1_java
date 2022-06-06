@@ -80,6 +80,10 @@ public class ShoppingCart{
         return false;
     }
 
+    public void clearCart() {
+        this.session.setAttribute(cartSession, new ArrayList<>());
+    }
+
     public double calcTotalMoney() {
         double total = 0;
         for(CartItem cartItem : cartItemList) {

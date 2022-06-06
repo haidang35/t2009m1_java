@@ -5,12 +5,14 @@ import com.example.ecommercever1.entity.Order;
 import com.example.ecommercever1.entity.entityEnum.CategoryStatus;
 import com.example.ecommercever1.entity.entityEnum.OrderStatus;
 import com.example.ecommercever1.model.interfaceModel.OrderModel;
+import com.example.ecommercever1.util.StringHelper;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,6 +23,7 @@ class MySqlOrderModelTest {
     void setUp() {
         orderModel = new MySqlOrderModel();
         orderModel.create( Order.OrderBuilder.anOrder()
+                .withCode(StringHelper.generateOrderCode())
                 .withFirstName("Jinner")
                 .withLastName("Dang")
                 .withCountry("Vietnam")
@@ -37,6 +40,7 @@ class MySqlOrderModelTest {
     @Test
     void create() {
        assertEquals(true, orderModel.create( Order.OrderBuilder.anOrder()
+               .withCode(StringHelper.generateOrderCode())
                .withFirstName("Jinner")
                .withLastName("Dang")
                .withCountry("Vietnam")
