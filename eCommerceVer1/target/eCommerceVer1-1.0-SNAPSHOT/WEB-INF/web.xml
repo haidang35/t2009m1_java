@@ -22,6 +22,14 @@
         <url-pattern>/demo-list</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.example.ecommercever1.controller.admin.auth.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/admin-login</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>ListCategoryServlet</servlet-name>
         <servlet-class>com.example.ecommercever1.controller.admin.category.ListCategoryServlet</servlet-class>
     </servlet>
@@ -158,4 +166,13 @@
         <servlet-name>CheckoutServlet</servlet-name>
         <url-pattern>/checkout</url-pattern>
     </servlet-mapping>
+<!--    Filter Servlet-->
+    <filter>
+        <filter-name>AuthFilterServlet</filter-name>
+        <filter-class>com.example.ecommercever1.filter.AuthFilterServlet</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilterServlet</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
 </web-app>
