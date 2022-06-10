@@ -1,5 +1,7 @@
 package com.rms.controller.food;
 
+import com.rms.entity.Food;
+import com.rms.entity.entityEnum.FoodStatus;
 import com.rms.entity.entityEnum.MessageType;
 import com.rms.entity.viewEntity.MessageView;
 import com.rms.model.MySqlFoodModel;
@@ -30,14 +32,16 @@ public class DeleteFoodServlet extends HttpServlet {
             return;
         }
         int id = Integer.parseInt(req.getParameter("id"));
-        if(foodModel.findById(id) == null) {
+        Food food = foodModel.findById(id);
+        if( food == null) {
             req.getRequestDispatcher("/admin/pages/errors/404.jsp").forward(req, resp);
             return;
         }
         MessageView messageView = new MessageView();
         HttpSession session = req.getSession();
+        food.setStatus(FoodStatus.DELETED);
         try {
-            if(foodModel.delete(id)) {
+            if(foodModel.update(id, food)) {
                 messageView.setMessageType(MessageType.SUCCESS);
                 messageView.setContent(LanguageHelper.getString("deleteProductSuccess"));
             }else {

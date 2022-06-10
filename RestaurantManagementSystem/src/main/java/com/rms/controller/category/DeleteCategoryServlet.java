@@ -1,6 +1,7 @@
 package com.rms.controller.category;
 
 import com.rms.entity.Category;
+import com.rms.entity.entityEnum.CategoryStatus;
 import com.rms.entity.entityEnum.MessageType;
 import com.rms.entity.viewEntity.MessageView;
 import com.rms.model.MySqlCategoryModel;
@@ -38,7 +39,8 @@ public class DeleteCategoryServlet extends HttpServlet {
         }
         MessageView messageView = new MessageView();
         HttpSession session = req.getSession();
-        if(categoryModel.delete(id)) {
+        category.setStatus(CategoryStatus.DELETED);
+        if(categoryModel.update(id, category)) {
            messageView.setMessageType(MessageType.SUCCESS);
            messageView.setContent(LanguageHelper.getString("deleteCategorySuccess"));
         }else {
