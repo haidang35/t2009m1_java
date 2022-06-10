@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.rms.entity.viewEntity.MessageView" %>
 <%@ page import="com.rms.entity.Food" %>
+<%@ page import="com.rms.util.FormatterHelper" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -80,7 +81,7 @@
                                         </td>
                                         <td><%=food.getCategory().getName()%>
                                         </td>
-                                        <td><%=food.getPrice()%>
+                                        <td><%=FormatterHelper.formatCurrencyVnd(food.getPrice())%>
                                         </td>
                                         <td>
                                             <span class="badge badge-success">

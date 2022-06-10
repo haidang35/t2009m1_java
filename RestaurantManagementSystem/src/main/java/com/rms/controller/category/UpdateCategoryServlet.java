@@ -29,8 +29,16 @@ public class UpdateCategoryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(req.getParameter("id") == null) {
+            req.getRequestDispatcher("/admin/pages/errors/404.jsp").forward(req, resp);
+            return;
+        }
         int categoryId = Integer.parseInt(req.getParameter("id"));
         Category category = categoryModel.findById(categoryId);
+        if(category == null) {
+            req.getRequestDispatcher("/admin/pages/errors/404.jsp").forward(req, resp);
+            return;
+        }
         List<Category> categoryList = categoryModel.findAll();
         req.setAttribute("formAction", FormAction.UPDATE);
         req.setAttribute("categoryList", categoryList);

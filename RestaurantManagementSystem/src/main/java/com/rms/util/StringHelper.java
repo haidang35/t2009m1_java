@@ -25,4 +25,5 @@ public class StringHelper {
     public static String generateOrderCode() {
         return "ORDER" + String.valueOf(System.currentTimeMillis());
     }
+
 }

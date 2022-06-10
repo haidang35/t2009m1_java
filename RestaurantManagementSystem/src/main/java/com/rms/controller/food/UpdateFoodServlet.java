@@ -56,6 +56,10 @@ public class UpdateFoodServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
+        if(req.getParameter("id") == null) {
+            req.getRequestDispatcher("/admin/pages/errors/404.jsp").forward(req, resp);
+            return;
+        }
         int id = Integer.parseInt(req.getParameter("id"));
         if(foodModel.findById(id) == null) {
             req.getRequestDispatcher("/admin/pages/errors/404.jsp").forward(req, resp);

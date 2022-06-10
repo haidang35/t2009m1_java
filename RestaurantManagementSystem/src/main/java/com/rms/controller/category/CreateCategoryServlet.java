@@ -68,6 +68,5 @@ public class CreateCategoryServlet extends HttpServlet {
         req.setAttribute("formAction", FormAction.CREATE);
         req.setAttribute("categoryList", categoryList);
         req.getRequestDispatcher("/admin/pages/category/form.jsp").forward(req, res);
-
     }
 }
