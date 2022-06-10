@@ -8,6 +8,7 @@ import com.example.ecommercever1.model.MySqlProductModel;
 import com.example.ecommercever1.model.interfaceModel.OrderItemModel;
 import com.example.ecommercever1.model.interfaceModel.OrderModel;
 import com.example.ecommercever1.model.interfaceModel.ProductModel;
+import com.example.ecommercever1.util.ConnectionHelper;
 import com.example.ecommercever1.util.StringHelper;
 
 import javax.servlet.ServletException;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class CheckoutServlet extends HttpServlet {
     private OrderModel orderModel;
@@ -68,7 +71,9 @@ public class CheckoutServlet extends HttpServlet {
                 .withTotal(cart.calcTotalMoney())
                 .withShippingFee(0)
                 .build();
+        Connection connection = ConnectionHelper.getConnection();
         try {
+            connection.setAutoCommit(false);
             if(orderModel.create(order)) {
                 Order orderSaved = orderModel.findByCode(orderCode);
                 if(orderSaved == null) {
@@ -89,10 +94,15 @@ public class CheckoutServlet extends HttpServlet {
                     }
                 }
                 cart.clearCart();
+                connection.commit();
                 req.getRequestDispatcher("/public/pages/notices/checkout-notice.jsp").forward(req, resp);
             }
-        }catch (Exception e) {
-            e.printStackTrace();
+        }catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }
