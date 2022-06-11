@@ -5,8 +5,10 @@ import com.rms.entity.entityEnum.FoodStatus;
 import com.rms.model.MySqlFoodModel;
 import com.rms.model.interfaceModel.FoodModel;
 
+import java.time.LocalDateTime;
+
 public class FoodSeeder {
-    private FoodModel foodModel;
+    private final FoodModel foodModel;
 
     public FoodSeeder() {
         foodModel = new MySqlFoodModel();
@@ -21,6 +23,7 @@ public class FoodSeeder {
                 .withCategoryId(1)
                 .withDescription("Rau muống luộc")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("RAUMUONGLUOC")
                 .build());
         foodModel.create(Food.FoodBuilder.aFood()
@@ -30,6 +33,7 @@ public class FoodSeeder {
                 .withCategoryId(1)
                 .withDescription("Thịt gà luộc")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("THIGALUOC")
                 .build());
         foodModel.create(Food.FoodBuilder.aFood()
@@ -39,6 +43,7 @@ public class FoodSeeder {
                 .withCategoryId(1)
                 .withDescription("Thịt lợn luộc")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("THITLONLUOC")
                 .build());
         // Món chay
@@ -49,6 +54,7 @@ public class FoodSeeder {
                 .withCategoryId(2)
                 .withDescription("Bò kho chay")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("BOKHOCHAY")
                 .build());
         foodModel.create(Food.FoodBuilder.aFood()
@@ -58,6 +64,7 @@ public class FoodSeeder {
                 .withCategoryId(2)
                 .withDescription("Chả chay")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("CHACHAY")
                 .build());
         foodModel.create(Food.FoodBuilder.aFood()
@@ -67,6 +74,7 @@ public class FoodSeeder {
                 .withCategoryId(2)
                 .withDescription("Chả chay xào nấm")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("CHACHAYXAONAM")
                 .build());
         // Món nướng
@@ -77,6 +85,7 @@ public class FoodSeeder {
                 .withCategoryId(3)
                 .withDescription("Thịt lợn xiên nướng")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("THITLONNUONG")
                 .build());
         foodModel.create(Food.FoodBuilder.aFood()
@@ -86,6 +95,7 @@ public class FoodSeeder {
                 .withCategoryId(3)
                 .withDescription("Thịt gà nướng nguyên con")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("GANUONGNGUYENCON")
                 .build());
         foodModel.create(Food.FoodBuilder.aFood()
@@ -95,6 +105,7 @@ public class FoodSeeder {
                 .withCategoryId(3)
                 .withDescription("Mực nướng")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("MUCNUONG")
                 .build());
         // Đồ uống
@@ -105,6 +116,7 @@ public class FoodSeeder {
                 .withCategoryId(4)
                 .withDescription("Cà phê phin")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("CAPHEPHIN")
                 .build());
         foodModel.create(Food.FoodBuilder.aFood()
@@ -114,6 +126,7 @@ public class FoodSeeder {
                 .withCategoryId(4)
                 .withDescription("Cappuccino")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("CAPPUCCINO")
                 .build());
         foodModel.create(Food.FoodBuilder.aFood()
@@ -123,6 +136,7 @@ public class FoodSeeder {
                 .withCategoryId(4)
                 .withDescription("Americano")
                 .withStatus(FoodStatus.ON_SALE)
+                .withSaleAt(LocalDateTime.now())
                 .withCode("AMERICANO")
                 .build());
     }

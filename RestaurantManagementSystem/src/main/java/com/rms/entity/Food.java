@@ -8,6 +8,7 @@ import com.rms.model.interfaceModel.CategoryModel;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class Food extends BaseEntity {
     private int id;
@@ -20,13 +21,14 @@ public class Food extends BaseEntity {
     private FoodStatus status;
     private HashMap<String, String> errors;
     private CategoryModel categoryModel;
+    private LocalDateTime saleAt;
 
     public Food() {
         errors = new HashMap<>();
         categoryModel = new MySqlCategoryModel();
     }
 
-    public Food(String name, String code, int categoryId, String description, String thumbnail, double price, FoodStatus status) {
+    public Food(String name, String code, int categoryId, String description, String thumbnail, double price, FoodStatus status, LocalDateTime saleAt) {
         this.name = name;
         this.code = code;
         this.categoryId = categoryId;
@@ -34,9 +36,10 @@ public class Food extends BaseEntity {
         this.thumbnail = thumbnail;
         this.price = price;
         this.status = status;
+        this.saleAt = saleAt;
     }
 
-    public Food(LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy, int id, String name, String code, int categoryId, String description, String thumbnail, double price, FoodStatus status) {
+    public Food(LocalDateTime createdAt, LocalDateTime updatedAt, LocalDateTime deletedAt, int createdBy, int updatedBy, int deletedBy, int id, String name, String code, int categoryId, String description, String thumbnail, double price, FoodStatus status, LocalDateTime saleAt) {
         super(createdAt, updatedAt, deletedAt, createdBy, updatedBy, deletedBy);
         this.id = id;
         this.code = code;
@@ -46,6 +49,7 @@ public class Food extends BaseEntity {
         this.thumbnail = thumbnail;
         this.price = price;
         this.status = status;
+        this.saleAt = saleAt;
     }
 
     public int getId() {
@@ -112,6 +116,14 @@ public class Food extends BaseEntity {
         this.status = status;
     }
 
+    public LocalDateTime getSaleAt() {
+        return saleAt;
+    }
+
+    public void setSaleAt(LocalDateTime saleAt) {
+        this.saleAt = saleAt;
+    }
+
     public HashMap<String, String> getErrors() {
         return errors;
     }
@@ -135,6 +147,7 @@ public class Food extends BaseEntity {
         private String thumbnail;
         private double price;
         private FoodStatus status;
+        private LocalDateTime saleAt;
 
         private FoodBuilder() {
             this.name = "";
@@ -143,6 +156,7 @@ public class Food extends BaseEntity {
             this.thumbnail = "";
             this.createdAt = LocalDateTime.now();
             this.updatedAt = LocalDateTime.now();
+            this.saleAt = LocalDateTime.now();
             this.status = FoodStatus.ON_SALE;
         }
 
@@ -205,6 +219,11 @@ public class Food extends BaseEntity {
             return this;
         }
 
+        public FoodBuilder withSaleAt(LocalDateTime saleAt) {
+            this.saleAt = saleAt;
+            return this;
+        }
+
         public FoodBuilder withCreatedBy(int createdBy) {
             this.createdBy = createdBy;
             return this;
@@ -232,6 +251,7 @@ public class Food extends BaseEntity {
             food.setStatus(status);
             food.setCreatedAt(createdAt);
             food.setUpdatedAt(updatedAt);
+            food.setSaleAt(saleAt);
             food.setDeletedAt(deletedAt);
             food.setCreatedBy(createdBy);
             food.setUpdatedBy(updatedBy);

@@ -33,6 +33,7 @@ public class MySqlFoodModel implements FoodModel {
             preparedStatement.setInt(9, food.getCreatedBy());
             preparedStatement.setInt(10, food.getUpdatedBy());
             preparedStatement.setInt(11, food.getStatus().getValue());
+            preparedStatement.setString(12, food.getSaleAt() != null ? food.getSaleAt().toString() : null);
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             e.printStackTrace();
@@ -62,7 +63,8 @@ public class MySqlFoodModel implements FoodModel {
             preparedStatement.setInt(11, food.getUpdatedBy());
             preparedStatement.setInt(12, food.getDeletedBy());
             preparedStatement.setInt(13, food.getStatus().getValue());
-            preparedStatement.setInt(14, id);
+            preparedStatement.setString(14, food.getSaleAt() != null ? food.getSaleAt().toString() : null);
+            preparedStatement.setInt(15, id);
             return preparedStatement.executeUpdate() > 0;
         }catch (SQLException e) {
             e.printStackTrace();
@@ -146,6 +148,7 @@ public class MySqlFoodModel implements FoodModel {
             double price = rs.getDouble(SqlConstant.FOOD_FIELD_PRICE);
             int categoryId = rs.getInt(SqlConstant.FOOD_FIELD_CATEGORY_ID);
             LocalDateTime createdAt = rs.getTimestamp(SqlConstant.FIELD_CREATED_AT).toLocalDateTime();
+            LocalDateTime saleAt = rs.getTimestamp(SqlConstant.FOOD_FIELD_SALE_AT).toLocalDateTime();
             LocalDateTime updatedAt = rs.getTimestamp(SqlConstant.FIELD_UPDATED_AT).toLocalDateTime();
             LocalDateTime deletedAt = null;
             if(rs.getTimestamp(SqlConstant.FIELD_DELETED_AT) != null) {
@@ -162,6 +165,7 @@ public class MySqlFoodModel implements FoodModel {
                     .withCategoryId(categoryId)
                     .withDescription(description)
                     .withPrice(price)
+                    .withSaleAt(saleAt)
                     .withThumbnail(thumbnail)
                     .withCreatedAt(createdAt)
                     .withUpdatedAt(updatedAt)

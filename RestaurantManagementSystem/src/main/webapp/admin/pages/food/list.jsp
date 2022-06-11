@@ -1,12 +1,15 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.rms.entity.viewEntity.MessageView" %>
 <%@ page import="com.rms.entity.Food" %>
 <%@ page import="com.rms.util.FormatterHelper" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib uri="http://rms.com/functions" prefix="f" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <jsp:include page="/admin/includes/head.jsp">
-    <jsp:param name="title" value="Form"/>
+    <jsp:param name="title" value="Food List"/>
 </jsp:include>
 <%
     List<Food> foodList = (List<Food>) request.getAttribute("foodList");
@@ -66,75 +69,78 @@
                                         <th scope="col">Category</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Sale At</th>
                                         <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <% for (Food food : foodList) { %>
-                                    <tr>
-                                        <td scope="row"><%=food.getId()%>
-                                        </td>
-                                        <td>
-                                            <img width="100" src="<%=food.getThumbnail()%>"/>
-                                        </td>
-                                        <td><%=food.getName()%>
-                                        </td>
-                                        <td><%=food.getCategory().getName()%>
-                                        </td>
-                                        <td><%=FormatterHelper.formatCurrencyVnd(food.getPrice())%>
-                                        </td>
-                                        <td>
+                                    <c:forEach items="${foodList}" var="food">
+                                        <tr>
+                                            <td scope="row">${food.getId()}
+                                            </td>
+                                            <td>
+                                                <img width="100" src="${food.getThumbnail()}"/>
+                                            </td>
+                                            <td>${food.getName()}
+                                            </td>
+                                            <td>${food.getCategory().getName()}
+                                            </td>
+                                            <td>${FormatterHelper.formatCurrencyVnd(food.getPrice())}
+                                            </td>
+                                            <td>
                                             <span class="badge badge-success">
-                                                <%= food.getStatus() %>
+                                               ${food.getStatus()}
                                             </span>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown show d-inline-block widget-dropdown">
-                                                <a class="dropdown-toggle icon-burger-mini" href="" role="button"
-                                                   id="dropdown-recent-order1" data-toggle="dropdown"
-                                                   aria-haspopup="true" aria-expanded="false" data-display="static"></a>
-                                                <ul class="dropdown-menu dropdown-menu-right"
-                                                    aria-labelledby="dropdown-recent-order1">
-                                                    <li class="dropdown-item">
-                                                        <a href="/admin/foods/update?id=<%=food.getId()%>">Edit</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a href="#" data-toggle="modal"
-                                                           data-target="#exampleModal<%= food.getId() %>">Remove</a>
+                                            </td>
+                                            <td>${f:formatLocalDateTime(food.getSaleAt(), 'dd-MM-yyyy')}
+                                            </td>
+                                            <td>
+                                                <div class="dropdown show d-inline-block widget-dropdown">
+                                                    <a class="dropdown-toggle icon-burger-mini" href="" role="button"
+                                                       id="dropdown-recent-order1" data-toggle="dropdown"
+                                                       aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+                                                    <ul class="dropdown-menu dropdown-menu-right"
+                                                        aria-labelledby="dropdown-recent-order1">
+                                                        <li class="dropdown-item">
+                                                            <a href="/admin/foods/update?id=${food.getId()}">Edit</a>
+                                                        </li>
+                                                        <li class="dropdown-item">
+                                                            <a href="#" data-toggle="modal"
+                                                               data-target="#exampleModal${food.getId()}">Remove</a>
 
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal<%= food.getId() %>"
-                                                 tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                 aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">
-                                                                Confirmation</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Are you sure to delete food - <%= food.getName() %>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger btn-pill"
-                                                                    data-dismiss="modal">Close
-                                                            </button>
-                                                            <a href="/admin/foods/delete?id=<%=food.getId()%>"
-                                                               class="btn btn-primary btn-pill">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal${food.getId()}"
+                                                     tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                    Confirmation</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure to delete food - ${food.getName()}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-pill"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <a href="/admin/foods/delete?id=${food.getId()}"
+                                                                   class="btn btn-primary btn-pill">Delete</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <% } %>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

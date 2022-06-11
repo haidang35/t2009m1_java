@@ -11,6 +11,7 @@ import com.rms.model.MySqlCategoryModel;
 import com.rms.model.MySqlFoodModel;
 import com.rms.model.interfaceModel.CategoryModel;
 import com.rms.model.interfaceModel.FoodModel;
+import com.rms.util.FormatterHelper;
 import com.rms.util.LanguageHelper;
 
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,6 +53,7 @@ public class CreateFoodServlet extends HttpServlet {
         String thumbnail = req.getParameter("thumbnail");
         String code = req.getParameter("code");
         String description = req.getParameter("description");
+        LocalDateTime saleAt = FormatterHelper.convertStringToLocalDateTime(req.getParameter("saleAt") + " 00:00", "yyyy-MM-dd HH:mm");
         double price = 0;
         if(req.getParameter("price") != null) {
             price = Double.parseDouble(req.getParameter("price"));
@@ -65,6 +68,7 @@ public class CreateFoodServlet extends HttpServlet {
                 .withStatus(status)
                 .withCategoryId(categoryId)
                 .withDescription(description)
+                .withSaleAt(saleAt)
                 .build();
         HttpSession session = req.getSession();
         MessageView messageView = new MessageView();

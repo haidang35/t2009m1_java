@@ -7,7 +7,9 @@
 <%@ page import="com.rms.entity.entityEnum.CategoryStatus" %>
 <%@ page import="com.rms.entity.Food" %>
 <%@ page import="com.rms.entity.entityEnum.FoodStatus" %>
+<%@ page import="com.rms.util.FormatterHelper" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://rms.com/functions" prefix="f" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <jsp:include page="/admin/includes/head.jsp">
@@ -166,6 +168,12 @@
                                                     <%= errors.get(ValidationConstant.FOOD_ERROR_KEY_STATUS) %>
                                                 </div>
                                                 <% } %>
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <label for="saleAt">Sale At</label>
+                                                <input type="date" class="form-control " id="saleAt"
+                                                       placeholder="Sale At" name="saleAt" value="<%= FormatterHelper.formatDate(food.getSaleAt(), "yyyy-MM-dd") %>"
+                                                >
                                             </div>
                                         </div>
                                         <button class="btn btn-primary" type="submit">Submit form</button>

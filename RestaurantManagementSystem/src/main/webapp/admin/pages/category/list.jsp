@@ -3,6 +3,7 @@
 <%@ page import="com.rms.entity.viewEntity.MessageView" %>
 <%@ page import="com.rms.entity.entityEnum.MessageType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <jsp:include page="/admin/includes/head.jsp">
@@ -68,65 +69,65 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <% for (Category category : categoryList) { %>
-                                    <tr>
-                                        <td><%= category.getId() %>
-                                        </td>
-                                        <td>
-                                            <%= category.getName() %>
-                                        </td>
-                                        <td>
+                                    <c:forEach items="${categoryList}" var="category">
+                                        <tr>
+                                            <td>${category.getId()}
+                                            </td>
+                                            <td>
+                                                ${category.getName()}
+                                            </td>
+                                            <td>
                                             <span class="badge badge-success">
-                                                <%= category.getStatus() %>
+                                                ${category.getStatus()}
                                             </span>
-                                        </td>
-                                        <td >
-                                            <div class="dropdown show d-inline-block widget-dropdown">
-                                                <a class="dropdown-toggle icon-burger-mini" href="" role="button"
-                                                   id="dropdown-recent-order1" data-toggle="dropdown"
-                                                   aria-haspopup="true" aria-expanded="false" data-display="static"></a>
-                                                <ul class="dropdown-menu dropdown-menu-right"
-                                                    aria-labelledby="dropdown-recent-order1">
-                                                    <li class="dropdown-item">
-                                                        <a href="/admin/categories/update?id=<%=category.getId()%>">View</a>
-                                                    </li>
-                                                    <li class="dropdown-item">
-                                                        <a href="#" data-toggle="modal"
-                                                           data-target="#exampleModal<%= category.getId() %>">Remove</a>
+                                            </td>
+                                            <td >
+                                                <div class="dropdown show d-inline-block widget-dropdown">
+                                                    <a class="dropdown-toggle icon-burger-mini" href="" role="button"
+                                                       id="dropdown-recent-order1" data-toggle="dropdown"
+                                                       aria-haspopup="true" aria-expanded="false" data-display="static"></a>
+                                                    <ul class="dropdown-menu dropdown-menu-right"
+                                                        aria-labelledby="dropdown-recent-order1">
+                                                        <li class="dropdown-item">
+                                                            <a href="/admin/categories/update?id=${category.getId()}">View</a>
+                                                        </li>
+                                                        <li class="dropdown-item">
+                                                            <a href="#" data-toggle="modal"
+                                                               data-target="#exampleModal${category.getId()}">Remove</a>
 
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal<%= category.getId() %>"
-                                                 tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                 aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">
-                                                                Confirmation</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Are you sure to delete <%= category.getName() %>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger btn-pill"
-                                                                    data-dismiss="modal">Close
-                                                            </button>
-                                                            <a href="/admin/categories/delete?id=<%=category.getId()%>"
-                                                               class="btn btn-primary btn-pill">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="exampleModal${category.getId()}"
+                                                     tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                    Confirmation</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Are you sure to delete ${category.getName()}
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-danger btn-pill"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <a href="/admin/categories/delete?id=${category.getId()}"
+                                                                   class="btn btn-primary btn-pill">Delete</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <% } %>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

@@ -20,10 +20,10 @@ public class SqlConstant {
     public static final String CATEGORY_FIND_ALL = "SELECT * FROM categories WHERE status = ? ORDER BY createdAt DESC;";
     public static final String CATEGORY_FIND_BY_SLUG = "SELECT * FROM categories WHERE status = ? AND slug = ?;";
 
-    public static final String FOOD_INSERT = "INSERT INTO foods (name, code, price, thumbnail, description, categoryId, createdAt, updatedAt, createdBy, updatedBy, status) " +
-            "                                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    public static final String FOOD_INSERT = "INSERT INTO foods (name, code, price, thumbnail, description, categoryId, createdAt, updatedAt, createdBy, updatedBy, status, saleAt) " +
+            "                                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     public static final String FOOD_UPDATE = "UPDATE foods SET name = ?, code = ?, price = ?, thumbnail = ?, description = ?, categoryId = ?," +
-            "createdAt = ?, updatedAt = ?, deletedAt = ?, createdBy = ?, updatedBy = ?, deletedBy = ?, status = ? WHERE id = ?;";
+            "createdAt = ?, updatedAt = ?, deletedAt = ?, createdBy = ?, updatedBy = ?, deletedBy = ?, status = ?, saleAt = ? WHERE id = ?;";
     public static final String FOOD_DELETE = "DELETE FROM foods WHERE id = ?;";
     public static final String FOOD_UPDATE_STATUS = "UPDATE foods SET status = ? WHERE id = ?";
     public static final String FOOD_FIND_BY_ID = "SELECT * FROM foods WHERE id = ?;";
@@ -52,6 +52,7 @@ public class SqlConstant {
     public static final String FOOD_FIELD_THUMBNAIL = "thumbnail";
     public static final String FOOD_FIELD_DESCRIPTION = "description";
     public static final String FOOD_FIELD_STATUS = "status";
+    public static final String FOOD_FIELD_SALE_AT = "saleAt";
 
     public static final String FIELD_CREATED_AT = "createdAt";
     public static final String FIELD_UPDATED_AT = "updatedAt";
