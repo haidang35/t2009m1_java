@@ -49,30 +49,30 @@ public class CreateFoodServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
-        String name = req.getParameter("name");
-        String thumbnail = req.getParameter("thumbnail");
-        String code = req.getParameter("code");
-        String description = req.getParameter("description");
-        LocalDateTime saleAt = FormatterHelper.convertStringToLocalDateTime(req.getParameter("saleAt") + " 00:00", "yyyy-MM-dd HH:mm");
-        double price = 0;
-        if(req.getParameter("price") != null) {
-            price = Double.parseDouble(req.getParameter("price"));
-        }
-        FoodStatus status = FoodStatus.of(Integer.parseInt(req.getParameter("status")));
-        int categoryId = Integer.parseInt(req.getParameter("categoryId"));
-        Food food = Food.FoodBuilder.aFood()
-                .withName(name)
-                .withCode(code)
-                .withThumbnail(thumbnail)
-                .withPrice(price)
-                .withStatus(status)
-                .withCategoryId(categoryId)
-                .withDescription(description)
-                .withSaleAt(saleAt)
-                .build();
         HttpSession session = req.getSession();
         MessageView messageView = new MessageView();
         try {
+            String name = req.getParameter("name");
+            String thumbnail = req.getParameter("thumbnail");
+            String code = req.getParameter("code");
+            String description = req.getParameter("description");
+            LocalDateTime saleAt = FormatterHelper.convertStringToLocalDateTime(req.getParameter("saleAt") + " 00:00", "yyyy-MM-dd HH:mm");
+            double price = 0;
+            if(req.getParameter("price") != null) {
+                price = Double.parseDouble(req.getParameter("price"));
+            }
+            FoodStatus status = FoodStatus.of(Integer.parseInt(req.getParameter("status")));
+            int categoryId = Integer.parseInt(req.getParameter("categoryId"));
+            Food food = Food.FoodBuilder.aFood()
+                    .withName(name)
+                    .withCode(code)
+                    .withThumbnail(thumbnail)
+                    .withPrice(price)
+                    .withStatus(status)
+                    .withCategoryId(categoryId)
+                    .withDescription(description)
+                    .withSaleAt(saleAt)
+                    .build();
             if(food.isValid()) {
                 if(foodModel.create(food)) {
                     messageView.setMessageType(MessageType.SUCCESS);
