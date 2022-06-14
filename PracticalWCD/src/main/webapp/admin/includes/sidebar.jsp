@@ -36,48 +36,24 @@
                         <span class="nav-text">Dashboard</span> <b class="caret"></b>
                     </a>
                 </li>
-                <li class="has-sub <%if(request.getRequestURI().equals("/admin/pages/category/list.jsp") || request.getRequestURI().equals("/admin/pages/category/form.jsp")) {%> active expand <%}%>">
+                <li class="has-sub <%if(request.getRequestURI().equals("/admin/pages/phone/listphone.jsp") || request.getRequestURI().equals("/admin/pages/phone/addphone.jsp")) {%> active expand <%}%>">
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
-                       data-target="#category"
+                       data-target="#phone"
                        aria-expanded="false" aria-controls="category">
                         <i class="mdi mdi-view-dashboard-outline"></i>
-                        <span class="nav-text">Category</span> <b class="caret"></b>
+                        <span class="nav-text">Phone</span> <b class="caret"></b>
                     </a>
-                    <ul class="collapse <%if(request.getRequestURI().equals("/admin/pages/category/list.jsp") || request.getRequestURI().equals("/admin/pages/category/form.jsp")) {%> show <%}%>"
-                        id="category"
+                    <ul class="collapse <%if(request.getRequestURI().equals("/admin/pages/phone/listphone.jsp") || request.getRequestURI().equals("/admin/pages/phone/addphone.jsp")) {%> show <%}%>"
+                        id="phone"
                         data-parent="#sidebar-menu">
                         <div class="sub-menu">
-                            <li class="<%if(request.getRequestURI().equals("/admin/pages/category/form.jsp")) {%> active <%}%>">
-                                <a class="sidenav-item-link" href="/admin/categories/create">
+                            <li class="<%if(request.getRequestURI().equals("/admin/pages/phone/addphone.jsp")) {%> active <%}%>">
+                                <a class="sidenav-item-link" href="/phones/create">
                                     <span class="nav-text">Create</span>
                                 </a>
                             </li>
-                            <li class="<%if(request.getRequestURI().equals("/admin/pages/category/list.jsp")) {%> active <%}%>">
-                                <a class="sidenav-item-link" href="/admin/categories">
-                                    <span class="nav-text">List</span>
-                                </a>
-                            </li>
-                        </div>
-                    </ul>
-                </li>
-                <li class="has-sub <%if(request.getRequestURI().equals("/admin/pages/food/list.jsp") || request.getRequestURI().equals("/admin/pages/food/form.jsp")) {%> active expand <%}%>">
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse"
-                       data-target="#food"
-                       aria-expanded="false" aria-controls="food">
-                        <i class="mdi mdi-view-dashboard-outline"></i>
-                        <span class="nav-text">Food</span> <b class="caret"></b>
-                    </a>
-                    <ul class="collapse <%if(request.getRequestURI().equals("/admin/pages/food/list.jsp") || request.getRequestURI().equals("/admin/pages/food/form.jsp")) {%> show <%}%>"
-                        id="food"
-                        data-parent="#sidebar-menu">
-                        <div class="sub-menu">
-                            <li class="<%if(request.getRequestURI().equals("/admin/pages/food/form.jsp")) {%> active <%}%>">
-                                <a class="sidenav-item-link" href="/admin/foods/create">
-                                    <span class="nav-text">Create</span>
-                                </a>
-                            </li>
-                            <li class="<%if(request.getRequestURI().equals("/admin/pages/food/list.jsp")) {%> active <%}%>">
-                                <a class="sidenav-item-link" href="/admin/foods">
+                            <li class="<%if(request.getRequestURI().equals("/admin/pages/phone/listphone.jsp")) {%> active <%}%>">
+                                <a class="sidenav-item-link" href="/phones">
                                     <span class="nav-text">List</span>
                                 </a>
                             </li>
