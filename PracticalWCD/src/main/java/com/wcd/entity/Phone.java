@@ -3,6 +3,7 @@ package com.wcd.entity;
 import com.wcd.entity.base.BaseEntity;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 public class Phone extends BaseEntity {
     private int id;
@@ -10,8 +11,10 @@ public class Phone extends BaseEntity {
     private String brand;
     private double price;
     private String description;
+    private HashMap<String, String> errors;
 
     public Phone() {
+        errors = new HashMap<>();
     }
 
     public Phone(String name, String brand, double price, String description) {
@@ -61,6 +64,29 @@ public class Phone extends BaseEntity {
         this.description = description;
     }
 
+    public HashMap<String, String> getErrors() {
+        return errors;
+    }
+
+    public boolean isValid() {
+        this.checkValid();
+        return errors.size() == 0;
+    }
+
+    public void checkValid() {
+        if(name.length() == 0 || name == null) {
+            errors.put("name", "Name cannot be empty");
+        }
+        if(brand.length() == 0 || brand == null) {
+            errors.put("brand", "Brand cannot be empty");
+        }
+        if(description.length() == 0 || description == null) {
+            errors.put("description", "Description cannot be empty");
+        }
+        if(price == 0) {
+            errors.put("price", "Price must be greater than 0");
+        }
+    }
 
     public static final class PhoneBuilder {
         public LocalDateTime createdAt;

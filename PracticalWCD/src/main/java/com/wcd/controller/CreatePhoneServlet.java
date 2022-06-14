@@ -35,7 +35,7 @@ public class CreatePhoneServlet extends HttpServlet {
         String brand = req.getParameter("brand");
         String description = req.getParameter("description");
         double price = 0;
-        if(req.getParameter("price") != null) {
+        if (req.getParameter("price") != null) {
             price = Double.parseDouble(req.getParameter("price"));
         }
         Phone phone = Phone.PhoneBuilder.aPhone()
@@ -45,12 +45,14 @@ public class CreatePhoneServlet extends HttpServlet {
                 .withDescription(description)
                 .build();
         HttpSession session = req.getSession();
-        if(phoneModel.create(phone)) {
+        if (phone.isValid() && phoneModel.create(phone)) {
             session.setAttribute("message", "Add new phone successfully !");
             resp.sendRedirect("/phones");
             return;
         }
         session.setAttribute("message", "Add new phone failed !");
+        req.setAttribute("phone", phone);
+        req.setAttribute("errors", phone.getErrors());
         req.getRequestDispatcher("/admin/pages/phone/addphone.jsp").forward(req, resp);
     }
 }

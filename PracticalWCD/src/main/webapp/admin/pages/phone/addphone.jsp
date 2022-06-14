@@ -1,9 +1,21 @@
+<%@ page import="com.wcd.entity.Phone" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <jsp:include page="/admin/includes/head.jsp">
     <jsp:param name="title" value="Form"/>
 </jsp:include>
+<%
+    Phone phone = (Phone) request.getAttribute("phone");
+    if(phone == null) {
+        phone = Phone.PhoneBuilder.aPhone().build();
+    }
+    HashMap<String, String> errors = (HashMap<String, String>) request.getAttribute("errors");
+    if(errors == null) {
+        errors = new HashMap<>();
+    }
+%>
 <body class="sidebar-fixed sidebar-dark header-light header-fixed" id="body">
 <!--    <script>-->
 <!--      NProgress.configure({ showSpinner: false });-->
@@ -27,43 +39,53 @@
                                     <div class="form-row">
                                         <div class="col-md-12 mb-3">
                                             <label for="name">Name</label>
-                                            <input type="text" class="form-control is-invalid"
+                                            <input type="text" class="form-control   <% if(errors.containsKey("name")) {%> is-invalid <% } %>"
                                                    id="name" name="name" placeholder="Name"
+                                                   value="<%=phone.getName()%>"
                                                    aria-describedby="inputGroupPrepend3">
+                                            <% if(errors.containsKey("name")) {%>
                                             <div class="invalid-feedback">
-                                                Name cannot be empty
+                                                <%=errors.get("name")%>
                                             </div>
+                                            <% } %>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="brand">Brand</label>
-                                            <select class="form-control is-invalid" name="brand"
+                                            <select class="form-control <% if(errors.containsKey("brand")) {%> is-invalid <% } %>" name="brand"
                                                       id="brand">
                                                 <option value="">Select brand</option>
-                                                <option value="Apple">Apple</option>
-                                                <option value="Samsung">Samsung</option>
-                                                <option value="Nokia">Nokia</option>
-                                                <option value="Others">Others</option>
+                                                <option value="Apple" <% if(phone.getBrand().equals("Apple")) { %> selected <% } %>>Apple</option>
+                                                <option value="Samsung" <% if(phone.getBrand().equals("Samsung")) { %> selected <% } %>>Samsung</option>
+                                                <option value="Nokia" <% if(phone.getBrand().equals("Nokia") ) { %> selected <% } %>>Nokia</option>
+                                                <option value="Others" <% if(phone.getBrand().equals("Others") ) { %> selected <% } %>>Others</option>
                                             </select>
+                                            <% if(errors.containsKey("brand")) {%>
                                             <div class="invalid-feedback">
-                                                Brand cannot be empty
+                                                <%=errors.get("brand")%>
                                             </div>
+                                            <% } %>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="price">Price</label>
-                                            <input type="number" name="price" class="form-control is-invalid"
+                                            <input type="number" name="price" class="form-control <% if(errors.containsKey("price")) {%> is-invalid <% } %>"
                                                    id="price" placeholder="Price"
+                                                   value="<%=phone.getPrice()%>"
                                                    aria-describedby="inputGroupPrepend3">
+                                            <% if(errors.containsKey("price")) {%>
                                             <div class="invalid-feedback">
-                                                Price cannot be empty
+                                                <%=errors.get("price")%>
                                             </div>
+                                            <% } %>
                                         </div>
                                         <div class="col-md-12 mb-3">
                                             <label for="description">Description</label>
-                                            <textarea name="description" class="form-control is-invalid"
-                                                   id="description" placeholder="Price"></textarea>
+                                            <textarea name="description" class="form-control <% if(errors.containsKey("description")) {%> is-invalid <% } %>"
+                                                   id="description" placeholder="Price"><%=phone.getDescription()%></textarea>
+                                            <% if(errors.containsKey("description")) {%>
                                             <div class="invalid-feedback">
-                                                Description cannot be empty
+                                                <%=errors.get("description")%>
                                             </div>
+                                            <% } %>
                                         </div>
 
                                     </div>
